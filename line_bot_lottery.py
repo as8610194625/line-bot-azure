@@ -10,9 +10,9 @@ import time
 # create flask server
 app = Flask(__name__)
 # your linebot message API - Channel access token (from LINE Developer)
-line_bot_api = LineBotApi('TUMeTx6e89YskIYfgtXw7azK/Qp7ghZ7zpG1ftadTfho9Ell85cnos4YHE/j2VYpkW8EcCtoo9Mo85iWp60zeaDWUqXFGulF/MHWb23P92wkQf0IZ3PZY/sz3rCxT/q3JSL1Ia6jcJxgW00XR08uNAdB04t89/1O/w1cDnyilFU=')
+line_bot_api = LineBotApi('IPlA3rOBc1lT+ubgYl/zyRmA3lFdSZKLJWLSZya6hBy4qFPtqMV6k+bWbZxv9LfakW8EcCtoo9Mo85iWp60zeaDWUqXFGulF/MHWb23P92yAI2WZbKUCnibssNMznxhK/IaoSYG0rrxLzZp6yIMu6AdB04t89/1O/w1cDnyilFU=')
 # your linebot message API - Channel secret
-handler = WebhookHandler('2ab32fa9ab3cf313231d5348e012933f')
+handler = WebhookHandler('cc218d13a298f6a8fde93c2ecda97203')
 
 @app.route("/callback", methods=['POST'])
 def callback():
