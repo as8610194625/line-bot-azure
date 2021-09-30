@@ -7,12 +7,19 @@ from linebot.models import MessageEvent,TextSendMessage
 from linebot.models.messages import ImageMessage
 import lottery_func
 import time
+import json
 # create flask server
 app = Flask(__name__)
-# your linebot message API - Channel access token (from LINE Developer)
-line_bot_api = LineBotApi('IPlA3rOBc1lT+ubgYl/zyRmA3lFdSZKLJWLSZya6hBy4qFPtqMV6k+bWbZxv9LfakW8EcCtoo9Mo85iWp60zeaDWUqXFGulF/MHWb23P92yAI2WZbKUCnibssNMznxhK/IaoSYG0rrxLzZp6yIMu6AdB04t89/1O/w1cDnyilFU=')
-# your linebot message API - Channel secret
-handler = WebhookHandler('cc218d13a298f6a8fde93c2ecda97203')
+
+secretFile=json.load(open("secretFile.txt",'r'))
+channelAccessToken=secretFile['channelAccessToken']
+channelSecret=secretFile["channelSecret"]
+subscription_key=secretFile['subscription_key']
+endpoint=secretFile['endpoint']
+
+line_bot_api =LineBotApi(channelAccessToken)
+handler=WebhookHandler(channelSecret)
+
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -41,10 +48,10 @@ def handle(event):
         for chunk in message_content.iter_content():
             fd.write(chunk)
         time.sleep(2)
-        lottery = lottery_func.main(image_id)   
+        lottery = lottery_func.main(image_id,subscription_key,endpoint)   
         line_bot_api.reply_message(event.reply_token,[TextSendMessage(text = lottery)])
         time.sleep(1)
 
 # run app
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=12345)
+    app.run(host='0.0.0.0',debug=True, port=12345)
